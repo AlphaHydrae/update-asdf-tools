@@ -1,0 +1,145 @@
+#!/usr/bin/env bash
+set -e
+
+bold=1
+red=31
+green=32
+yellow=33
+magenta=35
+cyan=36
+
+echo_color() {
+  local color="$1"
+  shift
+  local message="$@"
+
+  if is_interactive; then
+    echo -e "\033[${color}m${message}\033[0m"
+  else
+    echo "$message"
+  fi
+}
+
+escape() {
+  local value="$1"
+  echo "$value" | sed 's/[.[\*^$()+?{|]/\\&/g'
+}
+
+is_interactive() {
+  test "${-#*i}" != "$-" || test -t 0 || test -n "$PS1"
+}
+
+get_config_group() {
+  local group="$1"
+
+  echo "$config" \
+    | grep "^\[$group\]$" -A 999 \
+    | tail -n +2 \
+    | grep -v "^ *#" \
+    | grep -v "^ *$" \
+    | sed "/^\[/q" \
+    | sed "/^\[/d"
+}
+
+get_config_values_in_group() {
+  local group="$1"
+  local key="$(escape "$2")"
+  local operator="$(escape "$3")"
+
+  get_config_group $group \
+    | grep "^$key  *$operator  *" \
+    | cut -d ' ' -f 2-999 \
+    | sed "s/^ *//" \
+    | sed "s/^$operator *//" \
+    | sed "s/ *$//"
+}
+
+filter_versions() {
+  local subject="$1"
+  local plugin="$2"
+  local operator="$3"
+
+  grep_options="-E"
+  if echo "$operator" | grep -E '^\!' &>/dev/null; then
+    grep_options="$grep_options -v"
+  fi
+
+  for regexp in `get_config_values_in_group "versions" "$plugin" "$operator"`; do
+    test -n "$regexp" && subject="$(echo "$subject" | grep $grep_options -- "$regexp")"
+  done
+
+  printf "$subject"
+}
+
+confirm() {
+  local prompt="$1"
+  printf "$prompt"
+  read input
+  printf "$input" | grep -E -i "^(y|yes|n|no)$" && return 0
+  confirm "$prompt"
+}
+
+config=
+test -f ~/.update-all-asdf-tools && config=`cat ~/.update-all-asdf-tools`
+
+echo
+echo "Checking available updates..."
+current_versions=`asdf current`
+
+updates=()
+
+OLD_IFS="$IFS"
+IFS=$'\n'
+for current_version in $current_versions; do
+  IFS="$OLD_IFS"
+
+  trimmed="$(echo "$current_version"|tr -s ' ')"
+  plugin="$(echo "$trimmed"|cut -d ' ' -f 1)"
+  version="$(echo "$trimmed"|cut -d ' ' -f 2)"
+
+  printf "$(echo_color $bold "$plugin") $version"
+
+  fixed_version=`get_config_values_in_group "versions" "$plugin" "=" | tail -n 1`
+
+  available_versions=`asdf list all $plugin`
+  available_versions=`filter_versions "$available_versions" "*" "=~"`
+  available_versions=`filter_versions "$available_versions" "$plugin" "=~"`
+  available_versions=`filter_versions "$available_versions" "*" "!=~"`
+  available_versions=`filter_versions "$available_versions" "$plugin" "!=~"`
+  latest_version="$(echo "$available_versions" | tail -n 1)"
+
+  if test -n "$fixed_version"; then
+    printf " $(echo_color $cyan fixed)"
+    if [[ "$latest_version" != "$fixed_version" ]]; then
+      echo " ($latest_version available)"
+    else
+      echo " (no newer version available)"
+    fi
+  elif [[ "$latest_version" == "" ]]; then
+    echo " $(echo_color $red no matching version found)"
+  elif [[ "$version" == "$latest_version" ]]; then
+    echo " $(echo_color $green latest)"
+  else
+    updates+=( "$plugin $latest_version" )
+    echo " -> $(echo_color $yellow "$latest_version")"
+  fi
+
+  IFS=$'\n'
+done
+
+IFS="$OLD_IFS"
+
+if [[ ${#updates[@]} -eq 0 ]]; then
+  echo
+  echo_color $green "No updates available."
+
+  echo
+  exit 0
+fi
+
+echo
+echo "Updates found: ${#updates[@]}"
+confirm "Proceed? [yes/no] " || exit 0
+
+echo "Not yet implemented"
+echo
