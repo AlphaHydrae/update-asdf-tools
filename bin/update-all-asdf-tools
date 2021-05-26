@@ -7,6 +7,7 @@ green=32
 yellow=33
 magenta=35
 cyan=36
+gray=90
 
 echo_color() {
   local color="$1"
@@ -71,11 +72,25 @@ filter_versions() {
   printf "$subject"
 }
 
+longest_column() {
+  local text="$1"
+  local column="$2"
+
+  echo "$text" | \
+    tr -s ' ' | \
+    cut -d ' ' -f "$column" | \
+    awk '{ print length, $0 }' | \
+    sort -n -r -s | \
+    head -n 1 | \
+    cut -d ' ' -f 1
+}
+
 confirm() {
   local prompt="$1"
   printf "$prompt"
   read input
-  printf "$input" | grep -E -i "^(y|yes|n|no)$" && return 0
+  printf "$input" | grep -E -i "^(n|no)$" >/dev/null && return 1
+  printf "$input" | grep -E -i "^(y|yes)$" >/dev/null && return 0
   confirm "$prompt"
 }
 
@@ -85,6 +100,9 @@ test -f ~/.update-all-asdf-tools && config=`cat ~/.update-all-asdf-tools`
 echo
 echo "Checking available updates..."
 current_versions=`asdf current`
+
+longest_plugin_name=`longest_column "$current_versions" 1`
+longest_version_name=`longest_column "$current_versions" 2`
 
 updates=()
 
@@ -97,7 +115,10 @@ for current_version in $current_versions; do
   plugin="$(echo "$trimmed"|cut -d ' ' -f 1)"
   version="$(echo "$trimmed"|cut -d ' ' -f 2)"
 
-  printf "$(echo_color $bold "$plugin") $version"
+  separator="   "
+  padded_plugin="$(printf "%-${longest_plugin_name}s" "$plugin")"
+  padded_version="$(printf "%-${longest_version_name}s" "$version")"
+  printf "$(echo_color $bold "$padded_plugin")${separator}${padded_version}"
 
   fixed_version=`get_config_values_in_group "versions" "$plugin" "=" | tail -n 1`
 
@@ -109,19 +130,17 @@ for current_version in $current_versions; do
   latest_version="$(echo "$available_versions" | tail -n 1)"
 
   if test -n "$fixed_version"; then
-    printf " $(echo_color $cyan fixed)"
+    printf "${separator}$(echo_color $cyan fixed)   "
     if [[ "$latest_version" != "$fixed_version" ]]; then
-      echo " ($latest_version available)"
-    else
-      echo " (no newer version available)"
+      echo "${separator}$(echo_color $gray "$latest_version available")"
     fi
   elif [[ "$latest_version" == "" ]]; then
-    echo " $(echo_color $red no matching version found)"
+    echo "${separator}$(echo_color $red no matching version found)"
   elif [[ "$version" == "$latest_version" ]]; then
-    echo " $(echo_color $green latest)"
+    echo "${separator}$(echo_color $green latest)  "
   else
     updates+=( "$plugin $latest_version" )
-    echo " -> $(echo_color $yellow "$latest_version")"
+    echo "${separator}$(echo_color $yellow outdated)${separator}${latest_version} available"
   fi
 
   IFS=$'\n'
