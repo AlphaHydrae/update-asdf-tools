@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+set -e
+
+function fail() {
+  >&2 echo "$@"
+  exit 1
+}
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+
+test -z "$(git status --porcelain)" || fail "Commit changes before releasing"
+
+version="$1"
+[ $# -lt 1 ] && fail "The version to release must be provided as the first argument (current: $(./bin/update-asdf-tools --version))"
+[ $# -gt 1 ] && fail "This script only takes one argument"
+[[ "$version" =~ ^[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*$ ]] || fail "Version '${version}' is not a valid semver version"
+
+echo
+echo "Updating version to ${version}..."
+sed -i '' "s/version=.*/version=${version}/" bin/update-asdf-tools
+
+echo
+echo "Committing..."
+git add bin/update-asdf-tools
+git commit -m "v${version}"
+
+echo
+echo "Creating tag v${version}..."
+git tag "v${version}"
+
+echo
+echo "Pushing..."
+git push --tags origin main
+
+# Release to homebrew.
+"$SCRIPT_DIR/homebrew"

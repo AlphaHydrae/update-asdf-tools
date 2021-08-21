@@ -9,7 +9,7 @@ magenta=35
 cyan=36
 gray=90
 
-echo_color() {
+function echo_color() {
   local color="$1"
   shift
   local message="$@"
@@ -21,16 +21,23 @@ echo_color() {
   fi
 }
 
-escape() {
+function escape() {
   local value="$1"
   echo "$value" | sed 's/[.[\*^$()+?{|]/\\&/g'
 }
 
-is_interactive() {
+function fail() {
+  local code="$1"
+  shift
+  >&2 echo "$@"
+  exit 1
+}
+
+function is_interactive() {
   test "${-#*i}" != "$-" || test -t 0 || test -n "$PS1"
 }
 
-get_config_group() {
+function get_config_group() {
   local group="$1"
 
   echo "$config" \
@@ -42,7 +49,7 @@ get_config_group() {
     | sed "/^\[/d"
 }
 
-get_config_values_in_group() {
+function get_config_values_in_group() {
   local group="$1"
   local key="$(escape "$2")"
   local operator="$(escape "$3")"
@@ -55,7 +62,7 @@ get_config_values_in_group() {
     | sed "s/ *$//"
 }
 
-filter_versions() {
+function filter_versions() {
   local subject="$1"
   local plugin="$2"
   local operator="$3"
@@ -72,7 +79,7 @@ filter_versions() {
   printf "$subject"
 }
 
-longest_column() {
+function longest_column() {
   local text="$1"
   local column="$2"
 
@@ -85,7 +92,7 @@ longest_column() {
     cut -d ' ' -f 1
 }
 
-confirm() {
+function confirm() {
   local prompt="$1"
   printf "$prompt"
   read input
@@ -94,11 +101,32 @@ confirm() {
   confirm "$prompt"
 }
 
+version=1.0.0
+
+positional_args=()
+while [[ "$#" -gt 0 ]]; do
+  option="$1"
+  shift
+
+  case "$option" in
+    -v|--version)
+      echo "$(basename "$0") $version"
+      exit 0
+    ;;
+    *)
+      positional_args+=("$option")
+    ;;
+  esac
+done
+
+# Restore positional parameters.
+set -- "${positional_args[@]}"
+
 config=
-test -f ~/.update-all-asdf-tools && config=`cat ~/.update-all-asdf-tools`
+test -f ~/.update-asdf-tools && config=`cat ~/.update-asdf-tools`
 
 echo
-echo "Checking available updates..."
+echo_color $yellow "Checking available updates..."
 current_versions=`asdf current 2>/dev/null`
 
 longest_plugin_name=`longest_column "$current_versions" 1`

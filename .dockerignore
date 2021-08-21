@@ -1,0 +1,8 @@
+/Dockerfile
+/.dockerignore
+/.editorconfig
+/.envrc
+/*.md
+/.screenrc
+/.tool-versions
+/*.txt

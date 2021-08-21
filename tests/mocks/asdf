@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -e
+
+function fail() {
+  local code="$1"
+  shift
+
+  >&2 echo "$@"
+  exit "$code"
+}
+
+spy_file="$ASDF_MOCK_SPY_FILE"
+stubs_dir="$ASDF_MOCK_STUBS_DIR"
+
+test -f "$spy_file" && test -w "$spy_file" || \
+  fail 1 "\$ASDF_MOCK_SPY_FILE must be set and must be a writable file"
+
+test -d "$stubs_dir" && test -x "$stubs_dir" || \
+  fail 1 "\$ASDF_MOCK_STUBS_DIR must be set and must be a traversable directory"
+
+args="$@"
+stub_file="${stubs_dir}/${args}"
+test -f "$stub_file" && cat "$stub_file" || fail 2 "'$args' invocation not stubbed"
+
+echo "$0 $@" >> "$spy_file"

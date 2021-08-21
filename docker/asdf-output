@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -e
+
+function run() {
+  echo
+  echo "+ $@"
+  "$@"
+}
+
+. $HOME/.asdf/asdf.sh
+
+run asdf current
+
+run asdf plugin add deno
+
+run asdf current
+
+run asdf install deno 1.13.1
+
+run asdf current
+
+echo
