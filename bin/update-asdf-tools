@@ -126,6 +126,10 @@ config=
 test -f ~/.update-asdf-tools && config=`cat ~/.update-asdf-tools`
 
 echo
+echo_color $yellow "Updating plugins..."
+asdf plugin update --all
+
+echo
 echo_color $yellow "Checking available updates..."
 current_versions=`asdf current 2>/dev/null`
 

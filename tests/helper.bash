@@ -4,6 +4,7 @@ set -e
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
 root_dir="$(dirname "$script_dir")"
 bin_dir="${root_dir}/bin"
+data_dir="${root_dir}/tests/data"
 mocks_dir="${root_dir}/tests/mocks"
 asdf_mock="${mocks_dir}/asdf"
 new_line=$'\n'
@@ -15,9 +16,8 @@ function assert_asdf_called() {
   local expected_execution="$@"
   local executions="$(asdf_mock_executions)"
 
-  test -n "$executions" || fail "expected asdf to be called as '$expected_execution' but it was not called"
-  [[ "$executions" == "$expected_execution" ]] || \
-    fail "expected asdf to be called as '$expected_execution' but it was called like this: '$executions'"
+  test -n "$executions" || fail "expected asdf to be called but it was not"
+  assert_equal "$executions" "$expected_execution"
 
   asdf_call_assertions=$(( $asdf_call_assertions + 1 ))
 }
