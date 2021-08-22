@@ -1,3 +1,5 @@
+.PHONY: docker
+
 all: check
 
 asdf-output:
