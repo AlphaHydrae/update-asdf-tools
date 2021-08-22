@@ -101,6 +101,7 @@ function confirm() {
   confirm "$prompt"
 }
 
+yes=
 version=1.0.0
 
 positional_args=()
@@ -109,6 +110,9 @@ while [[ "$#" -gt 0 ]]; do
   shift
 
   case "$option" in
+    -y|--yes)
+      yes=true
+    ;;
     -v|--version)
       echo "$(basename "$0") $version"
       exit 0
@@ -196,7 +200,7 @@ fi
 echo
 echo "Updates found: ${#updates[@]}"
 
-if ! confirm "Proceed? [yes/no] "; then
+if [ "$yes" = "true" ] && ! confirm "Proceed? [yes/no] "; then
   echo
   exit 0
 fi
