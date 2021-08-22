@@ -48,7 +48,7 @@ function common_setup() {
   PATH="$bin_dir:$mocks_dir:$PATH"
 
   twd="${tmp_dir}/twd"
-  HOME="$twd"
+  export HOME="$twd"
 
   mkdir "$twd"
   cd "$twd"
