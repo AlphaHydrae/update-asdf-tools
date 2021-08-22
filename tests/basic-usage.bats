@@ -20,7 +20,7 @@ ruby            3.0.2           /home/example/.tool-versions
 EOF
 )"
 
-  config="$(cat <<EOF
+  config="$(cat > .update-asdf-tools <<EOF
 [versions]
 * =~ \d+\.\d+\.\d+
 * !=~ -dev
