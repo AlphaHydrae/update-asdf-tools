@@ -86,10 +86,9 @@ function longest_column() {
   echo "$text" | \
     tr -s ' ' | \
     cut -d ' ' -f "$column" | \
-    awk '{ print length, $0 }' | \
+    awk '{ print length }' | \
     sort -n -r -s | \
-    head -n 1 | \
-    cut -d ' ' -f 1
+    head -n 1
 }
 
 function confirm() {
@@ -137,8 +136,8 @@ echo
 echo_color $yellow "Checking available updates..."
 current_versions=`asdf current 2>/dev/null`
 
-longest_plugin_name=`longest_column "$current_versions" 1`
-longest_version_name=`longest_column "$current_versions" 2`
+longest_plugin_length=`longest_column "$current_versions" 1`
+longest_version_length=`longest_column "$current_versions" 2`
 
 updates=()
 
@@ -152,8 +151,8 @@ for current_version in $current_versions; do
   version="$(echo "$trimmed"|cut -d ' ' -f 2)"
 
   separator="   "
-  padded_plugin="$(printf "%-${longest_plugin_name}s" "$plugin")"
-  padded_version="$(printf "%-${longest_version_name}s" "$version")"
+  padded_plugin="$(printf "%-${longest_plugin_length}s" "$plugin")"
+  padded_version="$(printf "%-${longest_version_length}s" "$version")"
   printf "$(echo_color $bold "$padded_plugin")${separator}${padded_version}"
 
   fixed_version=`get_config_values_in_group "versions" "$plugin" "=" | tail -n 1`
