@@ -67,7 +67,7 @@ function filter_versions() {
   local plugin="$2"
   local operator="$3"
 
-  grep_options="-E"
+  local grep_options="$grep_base_options"
   if echo "$operator" | grep -E '^\!' &>/dev/null; then
     grep_options="$grep_options -v"
   fi
@@ -102,6 +102,12 @@ function confirm() {
 
 yes=
 version=1.0.0
+
+# Use "grep -P" if available, otherwise "grep -E".
+grep_base_options="-E"
+if `echo "1.2.3"|grep -P "\d+\.\d+\.\d+" &>/dev/null`; then
+  grep_base_options="-P"
+fi
 
 positional_args=()
 while [[ "$#" -gt 0 ]]; do

@@ -1,0 +1,26 @@
+FROM ubuntu:focal
+
+ENV ASDF_VERSION=v0.8.1
+
+WORKDIR /code
+
+RUN apt update && \
+    apt install -y curl git make parallel unzip && \
+    make --version && \
+    groupadd --system uat && \
+    useradd --gid uat --home-dir /code --no-create-home --system uat && \
+    chown uat:uat /code
+
+USER uat:uat
+
+RUN git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch ${ASDF_VERSION} && \
+    echo '. $HOME/.asdf/asdf.sh' >> ~/.bashrc && \
+    echo '. $HOME/.asdf/completions/asdf.bash' >> ~/.bashrc
+
+COPY --chown=uat:uat ./.tool-versions /code/
+
+RUN bash -c '. ~/.asdf/asdf.sh && asdf plugin add bats && asdf install bats && bats --version'
+
+COPY --chown=uat:uat ./ /code/
+
+CMD [ "bash", "-c", ". ~/.asdf/asdf.sh && make" ]

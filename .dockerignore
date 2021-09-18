@@ -1,8 +1,9 @@
-/Dockerfile
+/.ackrc
+/Dockerfile*
 /.dockerignore
 /.editorconfig
 /.envrc
+/.github
 /*.md
 /.screenrc
-/.tool-versions
 /*.txt
