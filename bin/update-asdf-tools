@@ -205,7 +205,7 @@ fi
 echo
 echo "Updates found: ${#updates[@]}"
 
-if [ "$yes" = "true" ] && ! confirm "Proceed? [yes/no] "; then
+if [ "$yes" != "true" ] && ! confirm "Proceed? [yes/no] "; then
   echo
   exit 0
 fi
