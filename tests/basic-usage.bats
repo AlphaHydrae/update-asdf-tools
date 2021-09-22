@@ -9,43 +9,23 @@ function teardown() {
   common_teardown
 }
 
-@test "it works" {
+@test "install the latest available versions of tools" {
   asdf_current="$(cat <<EOF
-elixir          1.12.2-otp-24   /home/example/.tool-versions
-erlang          24.0.5          /home/example/.tool-versions
-java            openjdk-16.0.2  /home/example/.tool-versions
-nodejs          16.7.0          /home/example/.tool-versions
-python          3.9.6           /home/example/.tool-versions
-ruby            3.0.2           /home/example/.tool-versions
-EOF
-)"
-
-  config="$(cat > .update-asdf-tools <<EOF
-[versions]
-* =~ \d+\.\d+\.\d+
-* !=~ -dev
-* !=~ \-rc\.
-* !=~ alpha
-* !=~ beta
-elixir =~ \-otp-24$
-java =~ ^openjdk-
-python =~ ^\d
-python !=~ \db\d*$
-python !=~ \drc
-ruby =~ ^\d
+nodejs          ______          No version set. Run "asdf <global|shell|local> nodejs <version>"
+ruby            ______          No version set. Run "asdf <global|shell|local> nodejs <version>"
 EOF
 )"
 
   stub_asdf "plugin update --all" ""
   stub_asdf "current" "$asdf_current"
-  stub_asdf "list all elixir" "$(cat "${data_dir}/elixir.txt")"
-  stub_asdf "list all erlang" "$(cat "${data_dir}/erlang.txt")"
-  stub_asdf "list all java" "$(cat "${data_dir}/java.txt")"
   stub_asdf "list all nodejs" "$(cat "${data_dir}/nodejs.txt")"
-  stub_asdf "list all python" "$(cat "${data_dir}/python.txt")"
   stub_asdf "list all ruby" "$(cat "${data_dir}/ruby.txt")"
+  stub_asdf "install nodejs 16.7.0" "(mock nodejs install)"
+  stub_asdf "global nodejs 16.7.0" ""
+  stub_asdf "install ruby rbx-5.0" "(mock ruby install)"
+  stub_asdf "global ruby rbx-5.0" ""
 
-  run update-asdf-tools
+  run update-asdf-tools --yes
   assert_success
 
   assert_output "$(cat <<EOF
@@ -53,26 +33,82 @@ EOF
 Updating plugins...
 
 Checking available updates...
-elixir   1.12.2-otp-24    1.12.2-otp-24
-erlang   24.0.5           24.0.5
-java     openjdk-16.0.2   openjdk-16.0.2
-nodejs   16.7.0           16.7.0
-python   3.9.6            3.9.6
-ruby     3.0.2            3.0.2
+nodejs   ______   16.7.0
+ruby     ______   rbx-5.0
 
-No updates available.
+Updates found: 2
+
+asdf install nodejs 16.7.0
+(mock nodejs install)
+asdf global nodejs 16.7.0
+
+asdf install ruby rbx-5.0
+(mock ruby install)
+asdf global ruby rbx-5.0
 EOF
 )"
 
   assert_asdf_called "$(cat <<EOF
 $asdf_mock plugin update --all
 $asdf_mock current
-$asdf_mock list all elixir
-$asdf_mock list all erlang
-$asdf_mock list all java
 $asdf_mock list all nodejs
-$asdf_mock list all python
 $asdf_mock list all ruby
+$asdf_mock install nodejs 16.7.0
+$asdf_mock global nodejs 16.7.0
+$asdf_mock install ruby rbx-5.0
+$asdf_mock global ruby rbx-5.0
+EOF
+)"
+}
+
+@test "update to the latest available versions of tools" {
+  asdf_current="$(cat <<EOF
+nodejs  14.17.4    /home/example/.tool-versions
+ruby    rbx-4.16   /home/example/.tool-versions
+EOF
+)"
+
+  stub_asdf "plugin update --all" ""
+  stub_asdf "current" "$asdf_current"
+  stub_asdf "list all nodejs" "$(cat "${data_dir}/nodejs.txt")"
+  stub_asdf "list all ruby" "$(cat "${data_dir}/ruby.txt")"
+  stub_asdf "install nodejs 16.7.0" "(mock nodejs install)"
+  stub_asdf "global nodejs 16.7.0" ""
+  stub_asdf "install ruby rbx-5.0" "(mock ruby install)"
+  stub_asdf "global ruby rbx-5.0" ""
+
+  run update-asdf-tools --yes
+  assert_success
+
+  assert_output "$(cat <<EOF
+
+Updating plugins...
+
+Checking available updates...
+nodejs   14.17.4    16.7.0
+ruby     rbx-4.16   rbx-5.0
+
+Updates found: 2
+
+asdf install nodejs 16.7.0
+(mock nodejs install)
+asdf global nodejs 16.7.0
+
+asdf install ruby rbx-5.0
+(mock ruby install)
+asdf global ruby rbx-5.0
+EOF
+)"
+
+  assert_asdf_called "$(cat <<EOF
+$asdf_mock plugin update --all
+$asdf_mock current
+$asdf_mock list all nodejs
+$asdf_mock list all ruby
+$asdf_mock install nodejs 16.7.0
+$asdf_mock global nodejs 16.7.0
+$asdf_mock install ruby rbx-5.0
+$asdf_mock global ruby rbx-5.0
 EOF
 )"
 }
