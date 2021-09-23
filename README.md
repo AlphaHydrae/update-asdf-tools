@@ -4,8 +4,7 @@
 [![build](https://github.com/AlphaHydrae/update-asdf-tools/actions/workflows/build.yml/badge.svg)](https://github.com/AlphaHydrae/update-asdf-tools/actions/workflows/build.yml)
 [![license](https://img.shields.io/static/v1?label=license&message=MIT&color=informational)](https://opensource.org/licenses/MIT)
 
-A magic shell script to update all [asdf][asdf] tools to the latest version in
-one command.
+A script to update all [asdf][asdf] tools to the latest version in one command.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
