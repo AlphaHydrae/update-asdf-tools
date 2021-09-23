@@ -29,12 +29,16 @@ Updating plugins...
 
 Checking available updates...
 nodejs   14.17.4    16.7.0
+python   ______     3.9.6
 ruby     rbx-4.16   rbx-5.0
 
 Updates found: 2
 
 asdf install nodejs 16.7.0
 asdf global nodejs 16.7.0
+
+asdf install python 3.9.6
+asdf global python 3.9.6
 
 asdf install ruby rbx-5.0
 asdf global ruby rbx-5.0
