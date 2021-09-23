@@ -18,7 +18,8 @@ A script to update all [asdf][asdf] tools to the latest version in one command.
 
 ## Usage
 
-Assuming you already have asdf installed with a few plugins, simply run the
+Assuming you already have [asdf installed with a few
+plugins](https://asdf-vm.com/guide/getting-started.html), simply run the
 command. It will update all tools to the latest versions and set those globally:
 
 ```bash
