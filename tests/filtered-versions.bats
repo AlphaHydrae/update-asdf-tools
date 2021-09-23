@@ -25,7 +25,8 @@ EOF
   stub_asdf "install ruby 3.0.2" "(mock ruby install)"
   stub_asdf "global ruby 3.0.2" ""
 
-  config="$(cat > .update-asdf-tools <<EOF
+  mkdir -p ~/.config/update-asdf-tools
+  config="$(cat > ~/.config/update-asdf-tools/update-asdf-tools.conf <<EOF
 [versions]
 * =~ ^\d+
 * !=~ \-dev$
@@ -84,7 +85,8 @@ EOF
   stub_asdf "install ruby jruby-9.2.19.0" "(mock ruby install)"
   stub_asdf "global ruby jruby-9.2.19.0" ""
 
-  config="$(cat > .update-asdf-tools <<EOF
+  mkdir -p ~/.config/update-asdf-tools
+  config="$(cat > ~/.config/update-asdf-tools/update-asdf-tools.conf <<EOF
 [versions]
 nodejs =~ ^14
 ruby =~ ^jruby
@@ -143,7 +145,8 @@ EOF
   stub_asdf "install ruby 3.0.2" "(mock ruby install)"
   stub_asdf "global ruby 3.0.2" ""
 
-  config="$(cat > .update-asdf-tools <<EOF
+  mkdir -p ~/.config/update-asdf-tools
+  config="$(cat > ~/.config/update-asdf-tools/update-asdf-tools.conf <<EOF
 [versions]
 * =~ ^\d+
 nodejs =~ ^15

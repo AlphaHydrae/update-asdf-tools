@@ -132,7 +132,8 @@ done
 set -- "${positional_args[@]}"
 
 config=
-test -f $HOME/.update-asdf-tools && config=`cat $HOME/.update-asdf-tools`
+config_file="$HOME/.config/update-asdf-tools/update-asdf-tools.conf"
+test -f "$config_file" && config=`cat "$config_file"`
 
 echo
 echo_color $yellow "Updating plugins..."

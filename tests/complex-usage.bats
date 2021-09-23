@@ -20,7 +20,8 @@ ruby     ______   No version set. Run "asdf <global|shell|local> nodejs <version
 EOF
 )"
 
-  config="$(cat > .update-asdf-tools <<EOF
+  mkdir -p ~/.config/update-asdf-tools
+  config="$(cat > ~/.config/update-asdf-tools/update-asdf-tools.conf <<EOF
 [versions]
 * =~ \d+\.\d+\.\d+
 * !=~ -dev
@@ -136,7 +137,8 @@ ruby     2.7.0           /home/example/.tool-versions
 EOF
 )"
 
-  config="$(cat > .update-asdf-tools <<EOF
+  mkdir -p ~/.config/update-asdf-tools
+  config="$(cat > ~/.config/update-asdf-tools/update-asdf-tools.conf <<EOF
 [versions]
 * =~ \d+\.\d+\.\d+
 * !=~ -dev
@@ -252,7 +254,8 @@ ruby            2.7.2           /home/example/.tool-versions
 EOF
 )"
 
-  config="$(cat > .update-asdf-tools <<EOF
+  mkdir -p ~/.config/update-asdf-tools
+  config="$(cat > ~/.config/update-asdf-tools/update-asdf-tools.conf <<EOF
 [versions]
 * =~ \d+\.\d+\.\d+
 * !=~ -dev

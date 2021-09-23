@@ -25,7 +25,8 @@ EOF
   stub_asdf "install ruby jruby-9.2.18.0" "(mock ruby install)"
   stub_asdf "global ruby jruby-9.2.18.0" ""
 
-  config="$(cat > .update-asdf-tools <<EOF
+  mkdir -p ~/.config/update-asdf-tools
+  config="$(cat > ~/.config/update-asdf-tools/update-asdf-tools.conf <<EOF
 [versions]
 nodejs = 13.12.0
 ruby = jruby-9.2.18.0
@@ -84,7 +85,8 @@ EOF
   stub_asdf "install ruby jruby-9.2.18.0" "(mock ruby install)"
   stub_asdf "global ruby jruby-9.2.18.0" ""
 
-  config="$(cat > .update-asdf-tools <<EOF
+  mkdir -p ~/.config/update-asdf-tools
+  config="$(cat > ~/.config/update-asdf-tools/update-asdf-tools.conf <<EOF
 [versions]
 nodejs = 13.12.0
 ruby = jruby-9.2.18.0
@@ -139,7 +141,8 @@ EOF
   stub_asdf "list all nodejs" "$(cat "${data_dir}/nodejs.txt")"
   stub_asdf "list all ruby" "$(cat "${data_dir}/ruby.txt")"
 
-  config="$(cat > .update-asdf-tools <<EOF
+  mkdir -p ~/.config/update-asdf-tools
+  config="$(cat > ~/.config/update-asdf-tools/update-asdf-tools.conf <<EOF
 [versions]
 nodejs = 13.12.0
 ruby = jruby-9.2.18.0
