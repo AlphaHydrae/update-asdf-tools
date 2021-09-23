@@ -20,10 +20,24 @@ one command.
 ## Usage
 
 Assuming you already have asdf installed with a few plugins, simply run the
-command:
+command. It will update all tools to the latest versions and set those globally:
 
 ```bash
-update-asdf-tools
+$> update-asdf-tools
+
+Updating plugins...
+
+Checking available updates...
+nodejs   14.17.4    16.7.0
+ruby     rbx-4.16   rbx-5.0
+
+Updates found: 2
+
+asdf install nodejs 16.7.0
+asdf global nodejs 16.7.0
+
+asdf install ruby rbx-5.0
+asdf global ruby rbx-5.0
 ```
 
 ## Configuration
