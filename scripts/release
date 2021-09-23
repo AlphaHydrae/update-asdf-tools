@@ -33,7 +33,7 @@ echo "Updating version from ${current_version} to ${version}..."
 sed -i '' "s/^program_version=.*/program_version=${version}/" bin/update-asdf-tools
 sed -i '' "s/badge.json?version=[0-9.]*/badge.json?version=${version}/" README.md
 sed -i '' "s/v.*\/update-asdf-tools_v.*.gz/v${version}\/update-asdf-tools_v${version}.gz/" README.md
-sed -i '' "s/update-asdf-tools [0-9.]*/update-asdf-tools ${version}/" tests/miscellaneous.bats
+sed -i '' "s/\"update-asdf-tools [0-9.]*\"/\"update-asdf-tools ${version}\"/" tests/miscellaneous.bats
 jq ".message = \"${version}\"" badge.json | sponge badge.json
 
 echo
