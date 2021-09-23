@@ -26,7 +26,7 @@ echo "$version"
 
 echo
 echo "Downloading release..."
-release_url="https://github.com/AlphaHydrae/update-asdf-tools/archive/v${version}.tar.gz"
+release_url="https://github.com/AlphaHydrae/update-asdf-tools/archive/refs/tags/v${version}.tar.gz"
 release_file="${version}.tar.gz"
 curl -sSLo "$release_file" "$release_url" || fail "Could not download ${release_url}"
 ls -lh "$release_file"
