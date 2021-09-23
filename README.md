@@ -38,16 +38,22 @@ expressions:
 # Filter which versions you want to consider for installation/update with
 # regular expressions.
 [versions]
+
 # Only install versions that contain a digit.
 * =~ \d+
+
 # Do not install versions that match the word "dev".
 * !=~ dev
+
 # Install an OpenJDK variant of Java.
 java =~ ^openjdk-
+
 # Install Erlang OTP 24.x.
 erlang =~ ^24
+
 # Install Elixir for the correct version of OTP.
 elixir =~ \-otp-24$
+
 # Install a specific version of Ruby.
 ruby = 2.7.2
 ```
