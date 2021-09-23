@@ -1,6 +1,6 @@
 # Update asdf tools
 
-[![version](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/AlphaHydrae/update-asdf-tools/main/badge.json?version=1.0.0)](https://github.com/AlphaHydrae/scide/releases)
+[![version](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/AlphaHydrae/update-asdf-tools/main/badge.json?version=1.0.0)](https://github.com/AlphaHydrae/update-asdf-tools/releases)
 [![build](https://github.com/AlphaHydrae/update-asdf-tools/actions/workflows/build.yml/badge.svg)](https://github.com/AlphaHydrae/update-asdf-tools/actions/workflows/build.yml)
 [![license](https://img.shields.io/static/v1?label=license&message=MIT&color=informational)](https://opensource.org/licenses/MIT)
 
@@ -85,7 +85,7 @@ With [Homebrew](https://brew.sh):
 
 ```bash
 brew tap alphahydrae/tools
-brew install scide
+brew install update-asdf-tools
 ```
 
 With [cURL](https://curl.se):
