@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-version=0.0.0
+program_version=0.0.0
 
 bold=1
 red=31
@@ -120,7 +120,7 @@ while [[ "$#" -gt 0 ]]; do
       yes=true
     ;;
     -v|--version)
-      echo "$(basename "$0") $version"
+      echo "$(basename "$0") $program_version"
       exit 0
     ;;
     *)
