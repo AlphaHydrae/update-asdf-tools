@@ -9,7 +9,7 @@ function teardown() {
   common_teardown
 }
 
-@test "install the latest available versions of tools" {
+@test "install specific versions of tools" {
   asdf_current="$(cat <<EOF
 nodejs          ______          No version set. Run "asdf <global|shell|local> nodejs <version>"
 ruby            ______          No version set. Run "asdf <global|shell|local> nodejs <version>"
@@ -20,10 +20,17 @@ EOF
   stub_asdf "current" "$asdf_current"
   stub_asdf "list all nodejs" "$(cat "${data_dir}/nodejs.txt")"
   stub_asdf "list all ruby" "$(cat "${data_dir}/ruby.txt")"
-  stub_asdf "install nodejs 16.7.0" "(mock nodejs install)"
-  stub_asdf "global nodejs 16.7.0" ""
-  stub_asdf "install ruby rbx-5.0" "(mock ruby install)"
-  stub_asdf "global ruby rbx-5.0" ""
+  stub_asdf "install nodejs 13.12.0" "(mock nodejs install)"
+  stub_asdf "global nodejs 13.12.0" ""
+  stub_asdf "install ruby jruby-9.2.18.0" "(mock ruby install)"
+  stub_asdf "global ruby jruby-9.2.18.0" ""
+
+  config="$(cat > .update-asdf-tools <<EOF
+[versions]
+nodejs = 13.12.0
+ruby = jruby-9.2.18.0
+EOF
+)"
 
   run update-asdf-tools --yes
   assert_success
@@ -33,18 +40,18 @@ EOF
 Updating plugins...
 
 Checking available updates...
-nodejs   ______   16.7.0
-ruby     ______   rbx-5.0
+nodejs   ______   13.12.0   16.7.0 available
+ruby     ______   jruby-9.2.18.0   rbx-5.0 available
 
 Updates found: 2
 
-asdf install nodejs 16.7.0
+asdf install nodejs 13.12.0
 (mock nodejs install)
-asdf global nodejs 16.7.0
+asdf global nodejs 13.12.0
 
-asdf install ruby rbx-5.0
+asdf install ruby jruby-9.2.18.0
 (mock ruby install)
-asdf global ruby rbx-5.0
+asdf global ruby jruby-9.2.18.0
 EOF
 )"
 
@@ -53,18 +60,18 @@ $asdf_mock plugin update --all
 $asdf_mock current
 $asdf_mock list all nodejs
 $asdf_mock list all ruby
-$asdf_mock install nodejs 16.7.0
-$asdf_mock global nodejs 16.7.0
-$asdf_mock install ruby rbx-5.0
-$asdf_mock global ruby rbx-5.0
+$asdf_mock install nodejs 13.12.0
+$asdf_mock global nodejs 13.12.0
+$asdf_mock install ruby jruby-9.2.18.0
+$asdf_mock global ruby jruby-9.2.18.0
 EOF
 )"
 }
 
-@test "update to the latest available versions of tools" {
+@test "the specified versions are installed and set as global when more recent versions are already set" {
   asdf_current="$(cat <<EOF
-nodejs  14.17.4    /home/example/.tool-versions
-ruby    rbx-4.16   /home/example/.tool-versions
+nodejs   16.7.0    /home/example/.tool-versions
+ruby     rbx-5.0   /home/example/.tool-versions
 EOF
 )"
 
@@ -72,10 +79,17 @@ EOF
   stub_asdf "current" "$asdf_current"
   stub_asdf "list all nodejs" "$(cat "${data_dir}/nodejs.txt")"
   stub_asdf "list all ruby" "$(cat "${data_dir}/ruby.txt")"
-  stub_asdf "install nodejs 16.7.0" "(mock nodejs install)"
-  stub_asdf "global nodejs 16.7.0" ""
-  stub_asdf "install ruby rbx-5.0" "(mock ruby install)"
-  stub_asdf "global ruby rbx-5.0" ""
+  stub_asdf "install nodejs 13.12.0" "(mock nodejs install)"
+  stub_asdf "global nodejs 13.12.0" ""
+  stub_asdf "install ruby jruby-9.2.18.0" "(mock ruby install)"
+  stub_asdf "global ruby jruby-9.2.18.0" ""
+
+  config="$(cat > .update-asdf-tools <<EOF
+[versions]
+nodejs = 13.12.0
+ruby = jruby-9.2.18.0
+EOF
+)"
 
   run update-asdf-tools --yes
   assert_success
@@ -85,18 +99,18 @@ EOF
 Updating plugins...
 
 Checking available updates...
-nodejs   14.17.4    16.7.0
-ruby     rbx-4.16   rbx-5.0
+nodejs   16.7.0    13.12.0   16.7.0 available
+ruby     rbx-5.0   jruby-9.2.18.0   rbx-5.0 available
 
 Updates found: 2
 
-asdf install nodejs 16.7.0
+asdf install nodejs 13.12.0
 (mock nodejs install)
-asdf global nodejs 16.7.0
+asdf global nodejs 13.12.0
 
-asdf install ruby rbx-5.0
+asdf install ruby jruby-9.2.18.0
 (mock ruby install)
-asdf global ruby rbx-5.0
+asdf global ruby jruby-9.2.18.0
 EOF
 )"
 
@@ -105,18 +119,18 @@ $asdf_mock plugin update --all
 $asdf_mock current
 $asdf_mock list all nodejs
 $asdf_mock list all ruby
-$asdf_mock install nodejs 16.7.0
-$asdf_mock global nodejs 16.7.0
-$asdf_mock install ruby rbx-5.0
-$asdf_mock global ruby rbx-5.0
+$asdf_mock install nodejs 13.12.0
+$asdf_mock global nodejs 13.12.0
+$asdf_mock install ruby jruby-9.2.18.0
+$asdf_mock global ruby jruby-9.2.18.0
 EOF
 )"
 }
 
-@test "nothing is updated when the tools are already up-to-date" {
+@test "nothing is updated when the specified versions of tools are already installed" {
   asdf_current="$(cat <<EOF
-nodejs  16.7.0    /home/example/.tool-versions
-ruby    rbx-5.0   /home/example/.tool-versions
+nodejs   13.12.0          /home/example/.tool-versions
+ruby     jruby-9.2.18.0   /home/example/.tool-versions
 EOF
 )"
 
@@ -124,10 +138,13 @@ EOF
   stub_asdf "current" "$asdf_current"
   stub_asdf "list all nodejs" "$(cat "${data_dir}/nodejs.txt")"
   stub_asdf "list all ruby" "$(cat "${data_dir}/ruby.txt")"
-  stub_asdf "install nodejs 16.7.0" "(mock nodejs install)"
-  stub_asdf "global nodejs 16.7.0" ""
-  stub_asdf "install ruby rbx-5.0" "(mock ruby install)"
-  stub_asdf "global ruby rbx-5.0" ""
+
+  config="$(cat > .update-asdf-tools <<EOF
+[versions]
+nodejs = 13.12.0
+ruby = jruby-9.2.18.0
+EOF
+)"
 
   run update-asdf-tools --yes
   assert_success
@@ -137,8 +154,8 @@ EOF
 Updating plugins...
 
 Checking available updates...
-nodejs   16.7.0    16.7.0
-ruby     rbx-5.0   rbx-5.0
+nodejs   13.12.0          13.12.0   16.7.0 available
+ruby     jruby-9.2.18.0   jruby-9.2.18.0   rbx-5.0 available
 
 No updates available.
 EOF
