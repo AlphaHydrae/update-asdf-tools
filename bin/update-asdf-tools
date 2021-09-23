@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
+version=1.0.0
+
 bold=1
 red=31
 green=32
@@ -101,7 +103,6 @@ function confirm() {
 }
 
 yes=
-version=1.0.0
 
 # Use "grep -P" if available, otherwise "grep -E".
 grep_base_options="-E"
