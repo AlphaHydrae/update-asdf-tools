@@ -7,8 +7,15 @@
 A magic shell script to update all [asdf][asdf] tools to the latest version in
 one command.
 
-<!-- START doctoc -->
-<!-- END doctoc -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Requirements](#requirements)
+- [Installation](#installation)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Usage
 
@@ -17,6 +24,32 @@ command:
 
 ```bash
 update-asdf-tools
+```
+
+## Configuration
+
+`update-asdf-tools` is configured with the
+`~/.config/update-asdf-tools/update-asdf-tools.conf` file:
+
+You can filter which versions you want to consider for installation with regular
+expressions:
+
+```conf
+# Filter which versions you want to consider for installation/update with
+# regular expressions.
+[versions]
+# Only install versions that contain a digit.
+* =~ \d+
+# Do not install versions that match the word "dev".
+* !=~ dev
+# Install an OpenJDK variant of Java.
+java =~ ^openjdk-
+# Install Erlang OTP 24.x.
+erlang =~ ^24
+# Install Elixir for the correct version of OTP.
+elixir =~ \-otp-24$
+# Install a specific version of Ruby.
+ruby = 2.7.2
 ```
 
 ## Requirements
