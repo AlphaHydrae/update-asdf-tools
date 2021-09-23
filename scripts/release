@@ -42,7 +42,7 @@ make
 
 echo
 echo "Committing..."
-git add badge.json bin/update-asdf-tools README.md
+git add badge.json bin/update-asdf-tools README.md tests/miscellaneous.bats
 git commit -m "v${version}"
 
 echo
