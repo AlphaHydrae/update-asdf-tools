@@ -18,7 +18,6 @@ jobs:
     runs-on: ubuntu-20.04
     name: Run automated tests
     steps:
-
       - name: Checkout the repository
         uses: actions/checkout@v2
         with:
@@ -27,7 +26,7 @@ jobs:
       - name: Install asdf
         uses: asdf-vm/actions/setup@v1
         with:
-          asdf_branch: v0.8.1
+          asdf_branch: v0.10.0
 
       - name: Install Bats with asdf
         run: |
