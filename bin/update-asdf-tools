@@ -102,6 +102,11 @@ function confirm() {
   confirm "$prompt"
 }
 
+function parse_semver() {
+  local text="$1"
+  echo "$1" | sed 's/.*\([0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\).*/\1/'
+}
+
 yes=
 
 # Use "grep -P" if available, otherwise "grep -E".
@@ -136,6 +141,11 @@ config=
 config_file="$HOME/.config/update-asdf-tools/update-asdf-tools.conf"
 test -f "$config_file" && config=`cat "$config_file"`
 
+asdf_version=`asdf --version 2>/dev/null`
+asdf_version="$(parse_semver "$asdf_version")"
+asdf_major_version="$(echo "$asdf_version" | cut -d '.' -f 1)"
+asdf_minor_version="$(echo "$asdf_version" | cut -d '.' -f 2)"
+
 echo
 echo_color $yellow "Updating plugins..."
 asdf plugin update --all
@@ -143,6 +153,10 @@ asdf plugin update --all
 echo
 echo_color $yellow "Checking available updates..."
 current_versions=`asdf current 2>/dev/null`
+
+if [[ "$asdf_major_version" -eq 0 ]] && [[ "$asdf_minor_version" -ge 16 ]]; then
+  current_versions="$(echo "$current_versions" | tail -n '+2')"
+fi
 
 longest_plugin_length=`longest_column "$current_versions" 1`
 longest_version_length=`longest_column "$current_versions" 2`
