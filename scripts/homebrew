@@ -51,7 +51,7 @@ cat "$formula_file"
 
 echo
 echo "Auditing & checking style of formula..."
-brew audit --formula "$formula_file"
+brew audit update-asdf-tools
 brew style "$formula_file"
 
 echo
