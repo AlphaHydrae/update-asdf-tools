@@ -1,6 +1,6 @@
 # Update asdf tools
 
-[![version](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/AlphaHydrae/update-asdf-tools/main/badge.json?version=1.0.0)](https://github.com/AlphaHydrae/update-asdf-tools/releases)
+[![version](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/AlphaHydrae/update-asdf-tools/main/badge.json?version=1.0.1)](https://github.com/AlphaHydrae/update-asdf-tools/releases)
 [![build](https://github.com/AlphaHydrae/update-asdf-tools/actions/workflows/build.yml/badge.svg)](https://github.com/AlphaHydrae/update-asdf-tools/actions/workflows/build.yml)
 [![license](https://img.shields.io/static/v1?label=license&message=MIT&color=informational)](https://opensource.org/licenses/MIT)
 
@@ -94,7 +94,7 @@ With [cURL](https://curl.se):
 ```bash
 PREFIX=/usr/local/bin \
   FROM=https://github.com/AlphaHydrae/update-asdf-tools/releases/download && \
-  curl -sSL $FROM/v1.0.0/update-asdf-tools_v1.0.0.gz | gunzip -c > $PREFIX/update-asdf-tools && \
+  curl -sSL $FROM/v1.0.1/update-asdf-tools_v1.0.1.gz | gunzip -c > $PREFIX/update-asdf-tools && \
   chmod +x $PREFIX/update-asdf-tools
 ```
 
@@ -103,7 +103,7 @@ With [Wget](https://www.gnu.org/software/wget/):
 ```bash
 PREFIX=/usr/local/bin \
   FROM=https://github.com/AlphaHydrae/update-asdf-tools/releases/download && \
-  wget -qO- $FROM/v1.0.0/update-asdf-tools_v1.0.0.gz | gunzip -c > $PREFIX/update-asdf-tools && \
+  wget -qO- $FROM/v1.0.1/update-asdf-tools_v1.0.1.gz | gunzip -c > $PREFIX/update-asdf-tools && \
   chmod +x $PREFIX/update-asdf-tools
 ```
 
