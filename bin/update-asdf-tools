@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-program_version=1.0.1
+program_version=1.0.2
 
 bold=1
 red=31
