@@ -23,9 +23,9 @@ EOF
   stub_asdf "list all nodejs" "$(cat "${data_dir}/nodejs.txt")"
   stub_asdf "list all ruby" "$(cat "${data_dir}/ruby.txt")"
   stub_asdf "install nodejs 13.12.0" "(mock nodejs install)"
-  stub_asdf "global nodejs 13.12.0" ""
+  stub_asdf "set --home nodejs 13.12.0" ""
   stub_asdf "install ruby jruby-9.2.18.0" "(mock ruby install)"
-  stub_asdf "global ruby jruby-9.2.18.0" ""
+  stub_asdf "set --home ruby jruby-9.2.18.0" ""
 
   mkdir -p ~/.config/update-asdf-tools
   config="$(cat > ~/.config/update-asdf-tools/update-asdf-tools.conf <<EOF
@@ -50,11 +50,11 @@ Updates found: 2
 
 asdf install nodejs 13.12.0
 (mock nodejs install)
-asdf global nodejs 13.12.0
+asdf set --home nodejs 13.12.0
 
 asdf install ruby jruby-9.2.18.0
 (mock ruby install)
-asdf global ruby jruby-9.2.18.0
+asdf set --home ruby jruby-9.2.18.0
 EOF
 )"
 
@@ -65,9 +65,9 @@ $asdf_mock current
 $asdf_mock list all nodejs
 $asdf_mock list all ruby
 $asdf_mock install nodejs 13.12.0
-$asdf_mock global nodejs 13.12.0
+$asdf_mock set --home nodejs 13.12.0
 $asdf_mock install ruby jruby-9.2.18.0
-$asdf_mock global ruby jruby-9.2.18.0
+$asdf_mock set --home ruby jruby-9.2.18.0
 EOF
 )"
 }
@@ -148,9 +148,9 @@ EOF
   stub_asdf "list all nodejs" "$(cat "${data_dir}/nodejs.txt")"
   stub_asdf "list all ruby" "$(cat "${data_dir}/ruby.txt")"
   stub_asdf "install nodejs 13.12.0" "(mock nodejs install)"
-  stub_asdf "global nodejs 13.12.0" ""
+  stub_asdf "set --home nodejs 13.12.0" ""
   stub_asdf "install ruby jruby-9.2.18.0" "(mock ruby install)"
-  stub_asdf "global ruby jruby-9.2.18.0" ""
+  stub_asdf "set --home ruby jruby-9.2.18.0" ""
 
   mkdir -p ~/.config/update-asdf-tools
   config="$(cat > ~/.config/update-asdf-tools/update-asdf-tools.conf <<EOF
@@ -175,11 +175,11 @@ Updates found: 2
 
 asdf install nodejs 13.12.0
 (mock nodejs install)
-asdf global nodejs 13.12.0
+asdf set --home nodejs 13.12.0
 
 asdf install ruby jruby-9.2.18.0
 (mock ruby install)
-asdf global ruby jruby-9.2.18.0
+asdf set --home ruby jruby-9.2.18.0
 EOF
 )"
 
@@ -190,9 +190,9 @@ $asdf_mock current
 $asdf_mock list all nodejs
 $asdf_mock list all ruby
 $asdf_mock install nodejs 13.12.0
-$asdf_mock global nodejs 13.12.0
+$asdf_mock set --home nodejs 13.12.0
 $asdf_mock install ruby jruby-9.2.18.0
-$asdf_mock global ruby jruby-9.2.18.0
+$asdf_mock set --home ruby jruby-9.2.18.0
 EOF
 )"
 }

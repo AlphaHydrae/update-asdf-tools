@@ -236,7 +236,10 @@ for update in "${updates[@]}"; do
   $command
 
   echo
-  command="asdf global $plugin $version"
+  command="asdf set --home $plugin $version"
+  if [[ "$asdf_major_version" -eq 0 ]] && [[ "$asdf_minor_version" -lt 16 ]]; then
+    command="asdf global $plugin $version"
+  fi
   echo_color $bold "$command"
   $command
 done

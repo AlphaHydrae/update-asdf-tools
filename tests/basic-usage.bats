@@ -23,9 +23,9 @@ EOF
   stub_asdf "list all nodejs" "$(cat "${data_dir}/nodejs.txt")"
   stub_asdf "list all ruby" "$(cat "${data_dir}/ruby.txt")"
   stub_asdf "install nodejs 16.7.0" "(mock nodejs install)"
-  stub_asdf "global nodejs 16.7.0" ""
+  stub_asdf "set --home nodejs 16.7.0" ""
   stub_asdf "install ruby rbx-5.0" "(mock ruby install)"
-  stub_asdf "global ruby rbx-5.0" ""
+  stub_asdf "set --home ruby rbx-5.0" ""
 
   run update-asdf-tools --yes
   assert_success
@@ -42,11 +42,11 @@ Updates found: 2
 
 asdf install nodejs 16.7.0
 (mock nodejs install)
-asdf global nodejs 16.7.0
+asdf set --home nodejs 16.7.0
 
 asdf install ruby rbx-5.0
 (mock ruby install)
-asdf global ruby rbx-5.0
+asdf set --home ruby rbx-5.0
 EOF
 )"
 
@@ -57,9 +57,9 @@ $asdf_mock current
 $asdf_mock list all nodejs
 $asdf_mock list all ruby
 $asdf_mock install nodejs 16.7.0
-$asdf_mock global nodejs 16.7.0
+$asdf_mock set --home nodejs 16.7.0
 $asdf_mock install ruby rbx-5.0
-$asdf_mock global ruby rbx-5.0
+$asdf_mock set --home ruby rbx-5.0
 EOF
 )"
 }
@@ -132,9 +132,9 @@ EOF
   stub_asdf "list all nodejs" "$(cat "${data_dir}/nodejs.txt")"
   stub_asdf "list all ruby" "$(cat "${data_dir}/ruby.txt")"
   stub_asdf "install nodejs 16.7.0" "(mock nodejs install)"
-  stub_asdf "global nodejs 16.7.0" ""
+  stub_asdf "set --home nodejs 16.7.0" ""
   stub_asdf "install ruby rbx-5.0" "(mock ruby install)"
-  stub_asdf "global ruby rbx-5.0" ""
+  stub_asdf "set --home ruby rbx-5.0" ""
 
   run update-asdf-tools --yes
   assert_success
@@ -151,11 +151,11 @@ Updates found: 2
 
 asdf install nodejs 16.7.0
 (mock nodejs install)
-asdf global nodejs 16.7.0
+asdf set --home nodejs 16.7.0
 
 asdf install ruby rbx-5.0
 (mock ruby install)
-asdf global ruby rbx-5.0
+asdf set --home ruby rbx-5.0
 EOF
 )"
 
@@ -166,9 +166,9 @@ $asdf_mock current
 $asdf_mock list all nodejs
 $asdf_mock list all ruby
 $asdf_mock install nodejs 16.7.0
-$asdf_mock global nodejs 16.7.0
+$asdf_mock set --home nodejs 16.7.0
 $asdf_mock install ruby rbx-5.0
-$asdf_mock global ruby rbx-5.0
+$asdf_mock set --home ruby rbx-5.0
 EOF
 )"
 }
@@ -241,9 +241,9 @@ EOF
   stub_asdf "list all nodejs" "$(cat "${data_dir}/nodejs.txt")"
   stub_asdf "list all ruby" "$(cat "${data_dir}/ruby.txt")"
   stub_asdf "install nodejs 16.7.0" "(mock nodejs install)"
-  stub_asdf "global nodejs 16.7.0" ""
+  stub_asdf "set --home nodejs 16.7.0" ""
   stub_asdf "install ruby rbx-5.0" "(mock ruby install)"
-  stub_asdf "global ruby rbx-5.0" ""
+  stub_asdf "set --home ruby rbx-5.0" ""
 
   run update-asdf-tools --yes
   assert_success
@@ -283,9 +283,9 @@ EOF
   stub_asdf "list all nodejs" "$(cat "${data_dir}/nodejs.txt")"
   stub_asdf "list all ruby" "$(cat "${data_dir}/ruby.txt")"
   stub_asdf "install nodejs 16.7.0" "(mock nodejs install)"
-  stub_asdf "global nodejs 16.7.0" ""
+  stub_asdf "set --home nodejs 16.7.0" ""
   stub_asdf "install ruby rbx-5.0" "(mock ruby install)"
-  stub_asdf "global ruby rbx-5.0" ""
+  stub_asdf "set --home ruby rbx-5.0" ""
 
   run update-asdf-tools --yes
   assert_success

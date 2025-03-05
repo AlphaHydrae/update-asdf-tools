@@ -23,9 +23,9 @@ EOF
   stub_asdf "list all nodejs" "$(cat "${data_dir}/nodejs.txt")"
   stub_asdf "list all ruby" "$(cat "${data_dir}/ruby.txt")"
   stub_asdf "install nodejs 16.7.0" "(mock nodejs install)"
-  stub_asdf "global nodejs 16.7.0" ""
+  stub_asdf "set --home nodejs 16.7.0" ""
   stub_asdf "install ruby 3.0.2" "(mock ruby install)"
-  stub_asdf "global ruby 3.0.2" ""
+  stub_asdf "set --home ruby 3.0.2" ""
 
   mkdir -p ~/.config/update-asdf-tools
   config="$(cat > ~/.config/update-asdf-tools/update-asdf-tools.conf <<EOF
@@ -50,11 +50,11 @@ Updates found: 2
 
 asdf install nodejs 16.7.0
 (mock nodejs install)
-asdf global nodejs 16.7.0
+asdf set --home nodejs 16.7.0
 
 asdf install ruby 3.0.2
 (mock ruby install)
-asdf global ruby 3.0.2
+asdf set --home ruby 3.0.2
 EOF
 )"
 
@@ -65,9 +65,9 @@ $asdf_mock current
 $asdf_mock list all nodejs
 $asdf_mock list all ruby
 $asdf_mock install nodejs 16.7.0
-$asdf_mock global nodejs 16.7.0
+$asdf_mock set --home nodejs 16.7.0
 $asdf_mock install ruby 3.0.2
-$asdf_mock global ruby 3.0.2
+$asdf_mock set --home ruby 3.0.2
 EOF
 )"
 }
@@ -148,9 +148,9 @@ EOF
   stub_asdf "list all nodejs" "$(cat "${data_dir}/nodejs.txt")"
   stub_asdf "list all ruby" "$(cat "${data_dir}/ruby.txt")"
   stub_asdf "install nodejs 14.17.5" "(mock nodejs install)"
-  stub_asdf "global nodejs 14.17.5" ""
+  stub_asdf "set --home nodejs 14.17.5" ""
   stub_asdf "install ruby jruby-9.2.19.0" "(mock ruby install)"
-  stub_asdf "global ruby jruby-9.2.19.0" ""
+  stub_asdf "set --home ruby jruby-9.2.19.0" ""
 
   mkdir -p ~/.config/update-asdf-tools
   config="$(cat > ~/.config/update-asdf-tools/update-asdf-tools.conf <<EOF
@@ -175,11 +175,11 @@ Updates found: 2
 
 asdf install nodejs 14.17.5
 (mock nodejs install)
-asdf global nodejs 14.17.5
+asdf set --home nodejs 14.17.5
 
 asdf install ruby jruby-9.2.19.0
 (mock ruby install)
-asdf global ruby jruby-9.2.19.0
+asdf set --home ruby jruby-9.2.19.0
 EOF
 )"
 
@@ -190,9 +190,9 @@ $asdf_mock current
 $asdf_mock list all nodejs
 $asdf_mock list all ruby
 $asdf_mock install nodejs 14.17.5
-$asdf_mock global nodejs 14.17.5
+$asdf_mock set --home nodejs 14.17.5
 $asdf_mock install ruby jruby-9.2.19.0
-$asdf_mock global ruby jruby-9.2.19.0
+$asdf_mock set --home ruby jruby-9.2.19.0
 EOF
 )"
 }
@@ -273,9 +273,9 @@ EOF
   stub_asdf "list all nodejs" "$(cat "${data_dir}/nodejs.txt")"
   stub_asdf "list all ruby" "$(cat "${data_dir}/ruby.txt")"
   stub_asdf "install nodejs 15.14.0" "(mock nodejs install)"
-  stub_asdf "global nodejs 15.14.0" ""
+  stub_asdf "set --home nodejs 15.14.0" ""
   stub_asdf "install ruby 3.0.2" "(mock ruby install)"
-  stub_asdf "global ruby 3.0.2" ""
+  stub_asdf "set --home ruby 3.0.2" ""
 
   mkdir -p ~/.config/update-asdf-tools
   config="$(cat > ~/.config/update-asdf-tools/update-asdf-tools.conf <<EOF
@@ -301,11 +301,11 @@ Updates found: 2
 
 asdf install nodejs 15.14.0
 (mock nodejs install)
-asdf global nodejs 15.14.0
+asdf set --home nodejs 15.14.0
 
 asdf install ruby 3.0.2
 (mock ruby install)
-asdf global ruby 3.0.2
+asdf set --home ruby 3.0.2
 EOF
 )"
 
@@ -316,9 +316,9 @@ $asdf_mock current
 $asdf_mock list all nodejs
 $asdf_mock list all ruby
 $asdf_mock install nodejs 15.14.0
-$asdf_mock global nodejs 15.14.0
+$asdf_mock set --home nodejs 15.14.0
 $asdf_mock install ruby 3.0.2
-$asdf_mock global ruby 3.0.2
+$asdf_mock set --home ruby 3.0.2
 EOF
 )"
 }

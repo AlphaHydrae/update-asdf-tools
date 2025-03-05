@@ -48,17 +48,17 @@ EOF
   stub_asdf "list all python" "$(cat "${data_dir}/python.txt")"
   stub_asdf "list all ruby" "$(cat "${data_dir}/ruby.txt")"
   stub_asdf "install elixir 1.12.2-otp-24" "(mock elixir install)"
-  stub_asdf "global elixir 1.12.2-otp-24" ""
+  stub_asdf "set --home elixir 1.12.2-otp-24" ""
   stub_asdf "install erlang 24.0.5" "(mock erlang install)"
-  stub_asdf "global erlang 24.0.5" ""
+  stub_asdf "set --home erlang 24.0.5" ""
   stub_asdf "install java openjdk-16.0.2" "(mock java install)"
-  stub_asdf "global java openjdk-16.0.2" ""
+  stub_asdf "set --home java openjdk-16.0.2" ""
   stub_asdf "install nodejs 16.7.0" "(mock nodejs install)"
-  stub_asdf "global nodejs 16.7.0" ""
+  stub_asdf "set --home nodejs 16.7.0" ""
   stub_asdf "install python 3.9.6" "(mock python install)"
-  stub_asdf "global python 3.9.6" ""
+  stub_asdf "set --home python 3.9.6" ""
   stub_asdf "install ruby 2.7.2" "(mock ruby install)"
-  stub_asdf "global ruby 2.7.2" ""
+  stub_asdf "set --home ruby 2.7.2" ""
 
   run update-asdf-tools --yes
   assert_success
@@ -79,27 +79,27 @@ Updates found: 6
 
 asdf install elixir 1.12.2-otp-24
 (mock elixir install)
-asdf global elixir 1.12.2-otp-24
+asdf set --home elixir 1.12.2-otp-24
 
 asdf install erlang 24.0.5
 (mock erlang install)
-asdf global erlang 24.0.5
+asdf set --home erlang 24.0.5
 
 asdf install java openjdk-16.0.2
 (mock java install)
-asdf global java openjdk-16.0.2
+asdf set --home java openjdk-16.0.2
 
 asdf install nodejs 16.7.0
 (mock nodejs install)
-asdf global nodejs 16.7.0
+asdf set --home nodejs 16.7.0
 
 asdf install python 3.9.6
 (mock python install)
-asdf global python 3.9.6
+asdf set --home python 3.9.6
 
 asdf install ruby 2.7.2
 (mock ruby install)
-asdf global ruby 2.7.2
+asdf set --home ruby 2.7.2
 EOF
 )"
 
@@ -114,17 +114,17 @@ $asdf_mock list all nodejs
 $asdf_mock list all python
 $asdf_mock list all ruby
 $asdf_mock install elixir 1.12.2-otp-24
-$asdf_mock global elixir 1.12.2-otp-24
+$asdf_mock set --home elixir 1.12.2-otp-24
 $asdf_mock install erlang 24.0.5
-$asdf_mock global erlang 24.0.5
+$asdf_mock set --home erlang 24.0.5
 $asdf_mock install java openjdk-16.0.2
-$asdf_mock global java openjdk-16.0.2
+$asdf_mock set --home java openjdk-16.0.2
 $asdf_mock install nodejs 16.7.0
-$asdf_mock global nodejs 16.7.0
+$asdf_mock set --home nodejs 16.7.0
 $asdf_mock install python 3.9.6
-$asdf_mock global python 3.9.6
+$asdf_mock set --home python 3.9.6
 $asdf_mock install ruby 2.7.2
-$asdf_mock global ruby 2.7.2
+$asdf_mock set --home ruby 2.7.2
 EOF
 )"
 }
@@ -287,17 +287,17 @@ EOF
   stub_asdf "list all python" "$(cat "${data_dir}/python.txt")"
   stub_asdf "list all ruby" "$(cat "${data_dir}/ruby.txt")"
   stub_asdf "install elixir 1.12.2-otp-24" "(mock elixir install)"
-  stub_asdf "global elixir 1.12.2-otp-24" ""
+  stub_asdf "set --home elixir 1.12.2-otp-24" ""
   stub_asdf "install erlang 24.0.5" "(mock erlang install)"
-  stub_asdf "global erlang 24.0.5" ""
+  stub_asdf "set --home erlang 24.0.5" ""
   stub_asdf "install java openjdk-16.0.2" "(mock java install)"
-  stub_asdf "global java openjdk-16.0.2" ""
+  stub_asdf "set --home java openjdk-16.0.2" ""
   stub_asdf "install nodejs 16.7.0" "(mock nodejs install)"
-  stub_asdf "global nodejs 16.7.0" ""
+  stub_asdf "set --home nodejs 16.7.0" ""
   stub_asdf "install python 3.9.6" "(mock python install)"
-  stub_asdf "global python 3.9.6" ""
+  stub_asdf "set --home python 3.9.6" ""
   stub_asdf "install ruby 2.7.2" "(mock ruby install)"
-  stub_asdf "global ruby 2.7.2" ""
+  stub_asdf "set --home ruby 2.7.2" ""
 
   run update-asdf-tools --yes
   assert_success
@@ -318,27 +318,27 @@ Updates found: 6
 
 asdf install elixir 1.12.2-otp-24
 (mock elixir install)
-asdf global elixir 1.12.2-otp-24
+asdf set --home elixir 1.12.2-otp-24
 
 asdf install erlang 24.0.5
 (mock erlang install)
-asdf global erlang 24.0.5
+asdf set --home erlang 24.0.5
 
 asdf install java openjdk-16.0.2
 (mock java install)
-asdf global java openjdk-16.0.2
+asdf set --home java openjdk-16.0.2
 
 asdf install nodejs 16.7.0
 (mock nodejs install)
-asdf global nodejs 16.7.0
+asdf set --home nodejs 16.7.0
 
 asdf install python 3.9.6
 (mock python install)
-asdf global python 3.9.6
+asdf set --home python 3.9.6
 
 asdf install ruby 2.7.2
 (mock ruby install)
-asdf global ruby 2.7.2
+asdf set --home ruby 2.7.2
 EOF
 )"
 
@@ -353,17 +353,17 @@ $asdf_mock list all nodejs
 $asdf_mock list all python
 $asdf_mock list all ruby
 $asdf_mock install elixir 1.12.2-otp-24
-$asdf_mock global elixir 1.12.2-otp-24
+$asdf_mock set --home elixir 1.12.2-otp-24
 $asdf_mock install erlang 24.0.5
-$asdf_mock global erlang 24.0.5
+$asdf_mock set --home erlang 24.0.5
 $asdf_mock install java openjdk-16.0.2
-$asdf_mock global java openjdk-16.0.2
+$asdf_mock set --home java openjdk-16.0.2
 $asdf_mock install nodejs 16.7.0
-$asdf_mock global nodejs 16.7.0
+$asdf_mock set --home nodejs 16.7.0
 $asdf_mock install python 3.9.6
-$asdf_mock global python 3.9.6
+$asdf_mock set --home python 3.9.6
 $asdf_mock install ruby 2.7.2
-$asdf_mock global ruby 2.7.2
+$asdf_mock set --home ruby 2.7.2
 EOF
 )"
 }
